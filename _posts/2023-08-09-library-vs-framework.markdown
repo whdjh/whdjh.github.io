@@ -5,6 +5,7 @@ date: 2023-08-09 00:00:00 +0900
 categories: dev
 ---
 
+원본링크: https://velog.io/@wngns9807/%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-vs-%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC
 2023년 8월 9일, 자바스크립트를 공부하다가 문득 이런 생각이 들었다.
 
 > React, Vue, Angular 같은 것들은 많이 들어봤는데  
