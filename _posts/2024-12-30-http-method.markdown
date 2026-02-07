@@ -5,6 +5,8 @@ date: 2024-12-30 00:00:00 +0900
 categories: dev
 ---
 
+원본링크: https://velog.io/@wngns9807/Http-Method
+
 2024년 12월 30일, 프로젝트를 진행하면서 서버와 통신할 일이 많아졌다.
 
 > **GET이면 조회, POST면 등록?**  
