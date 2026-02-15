@@ -1,117 +1,86 @@
 ---
 layout: home
+title: "이주훈"
 ---
 
-## 요약
+<div class="project-cards" markdown="0">
+  <div class="project-card">
+    <h3>YepBuddy</h3>
+    <div class="card-links">
+      <a href="https://github.com/whdjh/yepbuddy" class="btn-github" target="_blank">GitHub</a>
+      <a href="https://www.yepbuddy.co.kr/" class="btn-live" target="_blank">서비스</a>
+    </div>
+  </div>
+  <div class="project-card">
+    <h3>탐슬도감</h3>
+    <div class="card-links">
+      <a href="https://github.com/whdjh/acnh" class="btn-github" target="_blank">GitHub</a>
+      <a href="https://acnh-gules.vercel.app/" class="btn-live" target="_blank">서비스</a>
+    </div>
+  </div>
+</div>
 
----
+## 01. About Me
 
-- JS 생태계에 대한 깊은 이해를 바탕으로 **안정적인 서비스 구축과 팀의 성장을 함께 고민하는 엔지니어**입니다.
-- 단순히 스펙 문서만을 보고 개발하는 사람이 아닌, 항상 더 나은 방향성을 위해 고민하는 것을 좋아합니다.
-- 함께 일하고 싶은 사람이라는 말을 많이 듣는 것처럼 의사소통 과정을 중요하게 생각합니다.
-- 효율적으로 업무를 하는 것을 중요하게 여기며 이 과정에서 팀에 도움이 되는 활동에 관심이 많습니다.
-- AI를 통해 효율적으로 생산성을 올리는데 관심이 많습니다.
+**"팀의 생산성과 서비스 안정성을 함께 고민하는 엔지니어입니다."**
 
-**GitHub**: [github.com/whdjh](https://github.com/whdjh) · **Blog**: [whdjh.github.io](https://whdjh.github.io) · **Email**: wngns9807@gmail.com
-
----
-
-## 경력
-
----
-
-### [Liveklass](https://www.futureschole.com/ko/home) — Front-End Engineer, Dev Team
-
-**2025.10 - 현재**
-
-#### Liveklass Backoffice
-
-Refine 프레임워크 기반 관리자 백오피스를 구축하며, React 19와 TypeScript로 고객사 사이트 관리 및 구독 플랜, 사용자 권한 등을 관리하는 백오피스 환경을 구성했습니다.
-
-- **기존 코드베이스가 계층 구조 없이 혼재되어 있어 유지보수와 확장이 어려운 상황**에서, Feature-Sliced Design(FSD) 기반 커스텀 아키텍처를 도입해 계층 구조로 재구조화했습니다. 각 계층의 의존성 규칙을 명확히 하여 하위 계층이 상위 계층을 참조하지 않도록 설계했습니다.
-- **피처 플래그 대신 메뉴 권한 시스템을 직접 구현**하여 Role과 Group 단위로 메뉴 접근 권한을 관리하고, PermissionGuard 컴포넌트로 라우트 보호를 구현했습니다. 권한 기반 동적 사이드바를 구성해 사용자별 메뉴를 동적으로 렌더링하도록 했습니다.
-- **shadcn/ui 기반 컴포넌트를 절대 수정 금지로 분리**하고, 프로젝트 공통 컴포넌트는 별도 디렉토리로 분리해 의존성을 명확히 했습니다. 합성 패턴이나 여러 파일로 구성된 컴포넌트는 폴더 단위로 구조화했습니다.
-- **고객사 사이트 관리 기능**을 features 기반 모듈로 구성해 비즈니스 로직(lib)과 UI(ui)를 분리했습니다. 채널 상세 페이지는 탭 기반으로 기본정보, 구독, 설정, 도메인, 프로 멤버십 등 다중 섹션을 관리하도록 설계했습니다.
-- **커서룰 시스템을 도입**해 프로젝트 지식을 문서화하고, 세션 간 컨텍스트 유지를 위한 메모리 파일을 체계적으로 관리했습니다. 이를 통해 새로운 개발자 온보딩과 프로젝트 이해 시간을 단축했습니다.
-- **API 타입 자동 생성 시스템**을 구축해 Swagger에서 TypeScript 타입을 자동 생성하도록 했습니다. resource.config.ts에서 리소스별 URI를 중앙 관리해 API 엔드포인트 변경 시 일관성을 유지했습니다.
-
-#### Vue to React 점진적 전환을 위한 하이브리드 라우팅 아키텍처 설계
-
-기존 Vue 기반 레거시 시스템을 React(Next.js)로 점진적 마이그레이션하기 위해, 두 프레임워크가 공존하는 과도기적 단계의 라우팅 전략을 수립했습니다.
-
-- 초기에는 Next.js의 Middleware(Rewrites)를 활용한 Facade 패턴을 도입하여 프론트엔드 제어권을 강화하고자 했으나, PoC 과정에서 프록시 처리에 따른 서버 메모리 급증 및 정적 리소스 공유의 제약, 레거시 장애가 신규 서비스로 전파될 위험성을 확인했습니다.
-- 서비스 안정성을 최우선으로 확보하기 위해 **Nginx 기반의 인프라 레벨 라우팅 방식을 최종 채택**하여 런타임을 독립적으로 분리하고, 한 쪽 시스템의 장애가 다른 쪽에 영향을 주지 않도록 **장애 격리** 환경을 구축했습니다.
-- 도메인 간 쿠키·LocalStorage 공유, 스크롤 및 Input 상태 유지, 에러 핸들링 전략 등 UX에 직결되는 요소들을 사전에 검증하여 기술적 리스크를 제거하고 안정적인 마이그레이션 기반을 마련했습니다.
-
-#### 사내 인프라 다국어서비스 향상을 위한 백오피스
-
-다국어 리소스 관리의 비효율성을 개선하기 위해, Swagger가 API 타입을 자동 생성하듯 번역 파일이 자동으로 동기화되는 **i18n 리소스 자동화 시스템의 전체 아키텍처 설계 및 개발을 주도**했습니다.
-
-- 기존의 단순 수동 관리 방식에서 벗어나 유지보수 효율성과 데이터 무결성을 확보하고자 Inlang, Google Sheets, Slackbot 등 다양한 후보군을 **비용·중복성·추적성 등 5가지 지표로 정량 평가**했으며, 사내 보안 정책 준수와 확장성을 고려해 **전용 백오피스 구축을 최종 제안 및 확정**했습니다.
-- 프론트엔드 개발에 그치지 않고, **백엔드 API 스펙 및 데이터베이스 스키마를 직접 설계**하여 시스템의 기술적 기반을 다졌습니다. 특히 GitHub Actions를 활용해 백오피스에서 수정된 데이터가 실제 서비스의 다국어 파일로 자동 변환되어 PR까지 생성되는 **GitOps 기반의 배포 파이프라인을 구축**했습니다.
-- JSON 파싱 스크립트 작성 및 단일 PR 유지 전략(Force Push 활용)을 직접 구현하여 불필요한 커밋 생성을 방지하고 관리 효율을 극대화했습니다. 결과적으로 기획자나 번역가가 개발자의 개입 없이 직접 문구를 수정하고 배포할 수 있는 환경을 제공하여, **다국어 대응 리드타임을 단축하고 개발 생산성을 향상**시켰습니다.
-
-### PECSPERT — Front-End Engineer, Dev Team
-
-**2025.07 - 2025.08**
-
-#### 오프라인 캐싱 시스템 개발
-
-보육원에서 활용 중인 WiFi 전용 태블릿 PC의 불안정한 네트워크 환경을 개선하고, 아이들의 학습 연속성을 보장하기 위해 **오프라인 데이터 지원 시스템을 설계 및 구현**했습니다.
-
-- 대용량 데이터 처리 시 성능이 저하되는 AsyncStorage나 별도 라이브러리가 필요한 IndexedDB 대신, 파일 시스템에 직접 접근하여 JSON 구조를 안정적으로 저장할 수 있는 **Expo FileSystem**을 최종 스토리지 솔루션으로 채택했습니다.
-- 온라인 상태에서는 Firebase Firestore의 실시간 데이터를 기반으로 로컬 캐시를 자동 갱신하고, 네트워크 단절 시에는 즉시 캐시된 데이터를 불러와 중단 없는 학습 환경을 제공하는 **동기화 로직을 구축**했습니다.
-- 데이터 생성 및 수정 시 네트워크 상태를 감지하여 사용자에게 명확한 피드백을 제공하는 예외 처리 로직을 구현함으로써 UX를 크게 향상시켰습니다.
+JS 생태계에 대한 깊은 이해를 바탕으로, 단순한 기능 구현을 넘어 비즈니스 요구사항의 변화에 유연하게 대응할 수 있는 프론트엔드 구조를 설계합니다. 효율적인 업무 방식과 의사소통을 중요하게 생각하며, AI를 활용한 생산성 향상에 관심이 많습니다.
 
 ---
 
-## 사이드 프로젝트
+## 02. Experience
+
+### [Liveklass](https://www.futureschole.com/ko/home)
+
+**Front-End Engineer** · Dev Team · 2025.10 — 현재
+
+**Liveklass Backoffice**
+- FSD 기반 커스텀 아키텍처 도입으로 계층 구조 재구조화
+- Role/Group 단위 메뉴 권한 시스템 및 PermissionGuard 구현
+- Swagger → TypeScript 타입 자동 생성 시스템 구축
+
+**Vue → React 점진적 전환 아키텍처 설계**
+- Facade 패턴 PoC 후, 장애 격리를 위한 Nginx 기반 라우팅 최종 채택
+- 쿠키·스크롤·에러 핸들링 등 UX 요소 사전 검증으로 기술 리스크 제거
+
+**i18n 리소스 자동화 시스템**
+- 백엔드 API 스펙·DB 스키마 직접 설계
+- GitHub Actions 기반 GitOps 배포 파이프라인 구축 (백오피스 → JSON → PR 자동 생성)
+- 개발자 개입 없이 기획자가 직접 다국어 문구를 수정·배포할 수 있는 환경 구현
+
+### PECSPERT
+
+**Front-End Engineer** · Dev Team · 2025.07 — 2025.08
+
+**오프라인 캐싱 시스템 개발**
+- Expo FileSystem 기반 오프라인 데이터 지원 시스템 설계·구현
+- Firebase Firestore 실시간 동기화 + 네트워크 단절 시 캐시 자동 전환
+- 보육원 WiFi 전용 태블릿 환경에서 학습 연속성 보장
 
 ---
 
-- **YepBuddy** — 프로틴 가격 추적 서비스 ([상세 보기](/pages/2025-08-17-yepbuddy-hello/))
-- **탐슬도감** — 사이드 프로젝트 ([상세 보기](/pages/2025-10-13-tamsul-dictionary-journey/))
+## 03. Blogs
+
+**YepBuddy** — 프로틴 가격 추적 서비스 ([상세 보기](/pages/2025-08-17-yepbuddy-hello/))
+
+**탐슬도감** — 사이드 프로젝트 ([상세 보기](/pages/2025-10-13-tamsul-dictionary-journey/))
 
 ---
 
-## 교육 및 자격증
-
----
+## 04. Education
 
 ### 국립한경대학교
 
-**2019.03 - 2025.02**
-
-컴퓨터공학과 졸업 (3.87 / 4.5)
+Computer Engineering · 2019 — 2025 · **3.87** / 4.5
 
 ### 코드잇 프론트엔드 심화
 
-**2025.04 - 2025.06**
-
-- **Next.js SSR/CSR 역량 습득** — SEO가 중요한 페이지는 SSR로, 개인 정보가 포함된 페이지는 CSR로 구현하여 성능과 보안을 모두 고려한 렌더링 전략 습득
-- **테스트 주도 개발(TDD) 사고방식 습득** — JEST를 활용한 단위 테스트 작성을 통해 코드의 안정성을 사전에 검증하는 개발을 경험. 복잡한 상태 변화가 있는 컴포넌트의 경우 테스트 코드를 먼저 작성한 후 구현하는 TDD 방식을 적용
-- **디자이너 및 백엔드 개발자와의 협업 환경 경험** — 기능 우선순위 결정과 레이아웃 협의를 주도하며 실제 협업 프로세스와 커뮤니케이션 방식 습득
+2025.04 — 2025.06 · Next.js SSR/CSR · TDD(Jest) · 디자이너/백엔드 협업
 
 ### 코드잇 스프린트
 
-**2024.08 - 2025.02**
-
-- **React 상태 관리 아키텍처 설계 능력 습득** — useState, useEffect의 적절한 사용 시점을 구분하여 적용하여 설계하는 방법 습득
-- **TypeScript 타입 안전성 확보** — 확장 가능한 타입 시스템을 구축하고, 타입 중앙 관리하여 런타임 에러를 사전에 방지하는 타입 중심 개발 방식 습득
+2024.08 — 2025.02 · React 상태 관리 · TypeScript 타입 중심 개발
 
 ### 정보처리기사
 
 한국산업인력공단
-
----
-
-## 기술 스택
-
----
-
-| 분류 | 기술 |
-|------|------|
-| **FrontEnd** | HTML, CSS(Tailwind, Styled-Component, Module.css), JavaScript, React, TypeScript, Next.js |
-| **State & Server** | Zustand, Refine, Tanstack Query, Netlify, Vercel |
-| **Build & Tool** | Vite, GitHub Actions, Figma, Storybook, Jest, Supabase |
-| **Cooperation** | Git, GitHub, GitLab, Slack, JIRA, Confluence, Notion |

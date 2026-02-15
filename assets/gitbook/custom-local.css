@@ -1,5 +1,105 @@
-/* This file is kept intentionally blank inside the jekyll-github-theme
- * It gets imported at the end of custom.css
- * Its purpose is for users of the theme to be able to add css rules from a blank file
- *   these get simply added to the ones already active in the layout.
- */
+/* Scroll fade-in animation */
+.body-inner h2,
+.body-inner h3,
+.body-inner h4,
+.body-inner p,
+.body-inner ul,
+.body-inner ol,
+.body-inner table,
+.body-inner hr,
+.body-inner blockquote,
+.body-inner .project-cards {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.body-inner .is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Project cards */
+.project-cards {
+  display: flex;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.project-card {
+  flex: 1;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #fff;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.project-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.2em;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.project-card p {
+  margin: 0 0 16px 0;
+  color: #64748b;
+  font-size: 0.9em;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.project-card .card-links {
+  display: flex;
+  gap: 12px;
+}
+
+.project-card .card-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.85em;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.project-card .card-links a.btn-github {
+  background: #24292e;
+  color: #fff;
+}
+
+.project-card .card-links a.btn-github:hover {
+  background: #444d56;
+}
+
+.project-card .card-links a.btn-live {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.project-card .card-links a.btn-live:hover {
+  background: #2563eb;
+}
+
+.project-card .card-links a.btn-blog {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.project-card .card-links a.btn-blog:hover {
+  background: #e2e8f0;
+}
+
+@media (max-width: 600px) {
+  .project-cards {
+    flex-direction: column;
+  }
+}
