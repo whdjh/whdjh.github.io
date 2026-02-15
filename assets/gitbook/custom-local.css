@@ -1,18 +1,15 @@
-/* ===== Full-page scroll snap ===== */
+/* ===== Full-page section scroll ===== */
 .book-body {
   overflow: hidden;
 }
 
 .body-inner {
   height: 100vh;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
+  overflow: hidden;
 }
 
 .snap-section {
   min-height: 100vh;
-  scroll-snap-align: start;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -1,6 +1,5 @@
 ---
 layout: home
-title: "이주훈"
 ---
 
 <div class="snap-section" markdown="0">
