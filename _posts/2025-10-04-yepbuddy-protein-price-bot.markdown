@@ -182,6 +182,7 @@ main();
 
 ### GitHub Actions: 매일 오전 8시(KST 오후 5시) 자동화
 
+{% raw %}
 ```yaml
 name: Myprotein Monthly Tracker
 
@@ -212,6 +213,7 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
 ```
+{% endraw %}
 
 ---
 

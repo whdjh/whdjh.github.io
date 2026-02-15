@@ -54,6 +54,7 @@ Zustand·Redux 같은 전역 상태 라이브러리를 써도 되지만, 이번�
 
 ### CartContext 예시
 
+{% raw %}
 ```tsx
 // CartContext.tsx
 import { createContext, useContext, useState, ReactNode } from "react";
@@ -85,6 +86,7 @@ export const useCart = () => {
   return context;
 };
 ```
+{% endraw %}
 
 ```tsx
 // ProductList.tsx
