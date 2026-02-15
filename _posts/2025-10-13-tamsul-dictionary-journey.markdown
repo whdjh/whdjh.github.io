@@ -42,8 +42,8 @@ categories: dev
 
 그동안 프론트엔드만 해왔던 나에게 백엔드는 미지의 영역이었다. 하지만 Supabase와 Drizzle ORM을 선택하면서 조금은 자신감이 생겼다. 그리고 AI와 함께하는 바이브 코딩으로 막히는 부분을 빠르게 해결해나갔다.
 
-![개발 중 화면 1](/assets/img/75.png)
-![개발 중 화면 2](/assets/img/76.png)
+![개발 중 화면 1](/assets/img/71.png)
+![개발 중 화면 2](/assets/img/72.png)
 
 ### 첫 번째 도전: 풀스택으로의 첫걸음
 
@@ -55,7 +55,7 @@ categories: dev
 
 Supabase를 선택한 건 정말 잘한 선택이었다. 인증, 데이터베이스, API까지 모두 제공되어 백엔드 인프라를 빠르게 구축할 수 있었다. Drizzle ORM으로 타입 안전한 쿼리를 작성하면서, "아, 이게 풀스택이구나"라는 느낌이 들었다.
 
-![Supabase·Drizzle 활용](/assets/img/77.png)
+![Supabase·Drizzle 활용](/assets/img/73.png)
 
 ### 두 번째 도전: 데이터 최적화
 
@@ -136,7 +136,7 @@ const toggleCatch = useCallback(async (itemName: string) => {
 
 사용자가 체크하는 즉시 반응하는 느낌을 줄 수 있었다. 네트워크가 느려도 UI는 바로바로 반응했고, 사용자 경험이 크게 개선되었다.
 
-![체크 UX 동작](/assets/img/78.gif)
+![체크 UX 동작](/assets/img/74.gif)
 
 ---
 
@@ -152,9 +152,9 @@ const toggleCatch = useCallback(async (itemName: string) => {
 
 반응은 예상보다 훨씬 뜨거웠다.
 
-![출시 후 반응 1](/assets/img/79.png)
-![출시 후 반응 2](/assets/img/80.png)
-![출시 후 반응 3](/assets/img/81.png)
+![출시 후 반응 1](/assets/img/75.png)
+![출시 후 반응 2](/assets/img/76.png)
+![출시 후 반응 3](/assets/img/77.png)
 
 첫 주에만 40명의 사용자가 생겼고, 그 이후로도 주당 10명씩 꾸준히 늘어나고 있다. 현재는 약 60명의 사용자가 탐슬도감을 이용 중이다.
 
