@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "함수형 컴포넌트 상태 관리의 원리 (useState)"
+title: "useState"
 date: 2025-08-04 00:00:00 +0900
 categories: dev
 ---
