@@ -111,7 +111,7 @@ Context를 적용해 **장바구니 상태**를 전역에서 관리하게 했다
 - 코드가 짧아지고 **유지보수**가 수월해짐
 - **Context를 구독하는 컴포넌트만** 리렌더되어, 성능 영향을 줄일 수 있음[^2]
 
-이 포스트는 **리액트 훅 시리즈** 중 하나다. [useState 원리](/dev/2025-08-04-usestate-principle.html), [useEffect](/dev/2025-08-06-useeffect.html), [useReducer](/dev/2025-08-18-usereducer.html), [memo/useMemo/useCallback](/dev/2025-08-19-memo-usememo-usecallback.html), [useRef](/dev/2025-08-20-useref.html)에 이어 `useContext`를 정리했다.
+이 포스트는 **리액트 훅 시리즈** 중 하나다. [useState 원리](/others/2025-08-04-usestate-principle/), [useEffect](/others/2025-08-06-useeffect/), [useReducer](/others/2025-08-18-usereducer/), [memo/useMemo/useCallback](/others/2025-08-19-memo-usememo-usecallback/), [useRef](/others/2025-08-20-useref/)에 이어 `useContext`를 정리했다.
 
 ---
 

@@ -206,7 +206,7 @@ function Child() {
 - **실행 순서**를 이해하는 게 중요하다.  
   복잡한 컴포넌트 트리에서 데이터 흐름을 다룰 때, "부모 → 자식으로 데이터가 흐른다"는 것뿐 아니라 **effect·cleanup의 실행 순서(자식 → 부모)**까지 생각해야 한다.
 
-이 포스트는 **리액트 훅 시리즈** 중 하나다. [useState 원리](/dev/2025-08-04-usestate-principle.html)에 이어 `useEffect`를 정리했다. 다음에는 `useRef`, `useCallback` 등으로 이어갈 예정이다.
+이 포스트는 **리액트 훅 시리즈** 중 하나다. [useState 원리](/others/2025-08-04-usestate-principle/)에 이어 `useEffect`를 정리했다. 다음에는 `useRef`, `useCallback` 등으로 이어갈 예정이다.
 
 ---
 

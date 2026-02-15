@@ -272,4 +272,4 @@ self.addEventListener('fetch', (event) => {
 
 ---
 
-[PoC 1편: Nginx 리버스 프록시](/dev/2025-11-28-vue-react-migration-poc1.html) | [PoC 2편: Facade 패턴](/dev/2025-12-01-vue-react-migration-poc2.html) | [PoC 3편: 라우팅·데이터·Input 검증](/dev/2025-12-03-vue-react-migration-poc3.html) ← 이전
+[PoC 1편: Nginx 리버스 프록시](/others/2025-11-28-vue-react-migration-poc1/) | [PoC 2편: Facade 패턴](/others/2025-12-01-vue-react-migration-poc2/) | [PoC 3편: 라우팅·데이터·Input 검증](/others/2025-12-03-vue-react-migration-poc3/) ← 이전

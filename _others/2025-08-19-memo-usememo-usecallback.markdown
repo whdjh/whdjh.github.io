@@ -103,7 +103,7 @@ const sizeClass = useMemo(() => {
 - Input이 여러 개여도 **부모가 리렌더**돼도 **memo** 덕분에 props가 같으면 다시 그리지 않았다.
 - **useMemo**로 `sizeClass` 같은 내부 연산을 줄여, 불필요한 계산을 최소화했다.
 
-이 포스트는 **리액트 훅 시리즈** 중 하나다. [useState 원리](/dev/2025-08-04-usestate-principle.html), [useEffect](/dev/2025-08-06-useeffect.html), [useReducer](/dev/2025-08-18-usereducer.html)에 이어 `memo` / `useMemo` / `useCallback`을 정리했다.
+이 포스트는 **리액트 훅 시리즈** 중 하나다. [useState 원리](/others/2025-08-04-usestate-principle/), [useEffect](/others/2025-08-06-useeffect/), [useReducer](/others/2025-08-18-usereducer/)에 이어 `memo` / `useMemo` / `useCallback`을 정리했다.
 
 ---
 

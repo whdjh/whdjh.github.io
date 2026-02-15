@@ -207,4 +207,4 @@ PoC를 진행하며 Nginx 방식의 한계도 보였다.
 
 **질문:** 라우팅 제어를 프론트엔드에서 할 수는 없을까?
 
-→ [PoC 2편: Facade 패턴으로 라우팅 제어](/dev/2025-12-01-vue-react-migration-poc2.html)에서 이어간다.
+→ [PoC 2편: Facade 패턴으로 라우팅 제어](/others/2025-12-01-vue-react-migration-poc2/)에서 이어간다.
