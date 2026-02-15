@@ -1,0 +1,292 @@
+---
+layout: post
+title: "FSD로 프로젝트 구조 잡기"
+date: 2025-11-09 00:00:00 +0900
+categories: dev
+---
+
+원본링크: https://velog.io/@wngns9807/FSD%EB%A1%9C-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B5%AC%EC%A1%B0-%EC%9E%A1%EA%B8%B0
+
+---
+
+# Feature-Sliced Design (FSD) 핵심 가이드
+
+## FSD란?
+
+프론트엔드 프로젝트를 **“무엇을 하는가”** 기준으로 구조화하는 아키텍처다.
+
+**기존 문제**
+
+```
+/components  - ProductCard, AddToCartButton 뒤섞임
+/hooks       - 관련 훅 찾기 어려움
+/api         - 어떤 기능의 API인지 불명확
+```
+
+**FSD 해결**
+
+```
+/entities/product     - 제품 관련 모든 것
+/features/add-to-cart - 장바구니 담기 관련 모든 것
+```
+
+---
+
+## 계층 구조
+
+```
+app/       - 앱 설정, Provider, 라우터
+features/  - 사용자 행동 (동사)
+entities/  - 도메인 데이터 (명사)
+shared/    - 범용 유틸리티
+```
+
+**의존성 방향** (아래 → 위만 허용)
+
+```
+app
+ ↑
+features
+ ↑
+entities
+ ↑
+shared
+```
+
+**핵심 규칙**: 같은 Layer끼리는 서로 import 불가.
+
+---
+
+## 계층별 역할
+
+### Shared — 범용 유틸리티
+
+**역할**: 도메인을 모르는 순수 기술 코드
+
+```
+shared/
+  ├── ui/     - Button, Input, Modal
+  ├── lib/    - formatDate, validateEmail
+  └── hooks/  - useDebounce, usePagination
+```
+
+- 비즈니스 로직 없음
+- 어디서든 재사용 가능
+
+---
+
+### Entities — 도메인 모델
+
+**역할**: 비즈니스 핵심 데이터와 표현  
+**명명**: 명사 (Product, User, Order)
+
+```
+entities/product/
+  ├── ui/
+  │   ├── ProductCard.tsx
+  │   └── ProductList.tsx
+  ├── api/
+  │   └── productApi.ts
+  ├── model/
+  │   ├── types.ts
+  │   └── hooks.ts
+  └── index.ts
+```
+
+**Entity가 하는 것**: 데이터 구조 정의, CRUD, 데이터 표시 UI  
+**Entity가 안 하는 것**: 사용자 행동(좋아요, 담기), 복잡한 비즈니스 로직, 다른 Entity와 조합
+
+---
+
+### Features — 사용자 행동
+
+**역할**: 사용자가 수행하는 행동  
+**명명**: 동사 (add-to-cart, login, like-product)
+
+```
+features/add-to-cart/
+  ├── ui/
+  │   └── AddToCartButton.tsx
+  ├── api/
+  │   └── cartApi.ts
+  ├── model/
+  │   └── useAddToCart.ts
+  └── index.ts
+```
+
+- Entity 데이터 조작
+- 사용자 이벤트 처리
+- CRUD 외 액션 API
+
+**Entity vs Feature**: Entity = ProductCard(데이터 보여주기), Feature = AddToCartButton(행동 실행)
+
+---
+
+### App — 애플리케이션 설정
+
+**역할**: 전역 설정 및 초기화
+
+```
+app/
+  ├── providers/
+  ├── router/
+  └── styles/
+```
+
+---
+
+## 3개 질문으로 계층 구분하기
+
+```
+Q1. 도메인을 알고 있나? (Product, User 같은 비즈니스 개념)
+    ├─ NO → shared/
+    └─ YES → Q2로
+
+Q2. Feature(행동)를 사용하나? (useLikeProduct 같은 Feature 훅)
+    ├─ NO → entities/
+    └─ YES → features/
+```
+
+---
+
+## 실전 예시
+
+### 예시 1: Button 시리즈
+
+**Shared — Button**: 도메인? NO → **shared/**
+
+```tsx
+// shared/ui/Button.tsx
+function Button({ onClick, children }) {
+  return <button onClick={onClick}>{children}</button>;
+}
+```
+
+**Entity — ProductCard**: 도메인? YES. Feature? NO(표시만) → **entities/product/**
+
+```tsx
+// entities/product/ui/ProductCard.tsx
+function ProductCard({ product }) {
+  return (
+    <div>
+      <img src={product.image} />
+      <h3>{product.name}</h3>
+    </div>
+  );
+}
+```
+
+**Feature — AddToCartButton**: 도메인? YES. Feature 훅 사용? YES → **features/add-to-cart/**
+
+```tsx
+// features/add-to-cart/ui/AddToCartButton.tsx
+function AddToCartButton({ product }) {
+  const { handleAddToCart } = useAddToCart();
+  return (
+    <Button onClick={() => handleAddToCart(product)}>장바구니 담기</Button>
+  );
+}
+```
+
+### 예시 2: List 시리즈
+
+**Shared — List**: 도메인? NO → **shared/**  
+**Entity — ProductList**: 도메인? YES. Feature? NO → **entities/product/**
+
+```tsx
+// entities/product/ui/ProductList.tsx
+function ProductList({ products }) {
+  return (
+    <List items={products} renderItem={(p) => <ProductCard product={p} />} />
+  );
+}
+```
+
+---
+
+## Slice 내부 구조
+
+```
+entities/product/
+  ├── ui/
+  ├── api/
+  ├── model/   - types, hooks, store(선택)
+  ├── lib/     - 헬퍼 (선택)
+  └── index.ts - Public API (필수)
+```
+
+---
+
+## Public API 패턴
+
+각 Slice는 **index.ts**를 통해서만 공개한다.
+
+```ts
+// entities/product/index.ts
+export { ProductCard, ProductList } from './ui';
+export { getProducts } from './api/productApi';
+export { useProducts } from './model/hooks';
+export type { Product } from './model/types';
+```
+
+- **좋음**: `import { ProductCard } from 'entities/product';`
+- **나쁨**: `import { ProductCard } from 'entities/product/ui/ProductCard';`
+
+---
+
+## 의존성 규칙
+
+**가능**: 하위 Layer, 같은 Slice 내부  
+**불가능**: 상위 Layer, 같은 Layer의 다른 Slice
+
+같은 Layer에서 공유가 필요하면 → **하위 Layer**(entities 또는 shared)로 이동.
+
+---
+
+## 헷갈리는 케이스
+
+**1. props로 받는 onClick**  
+ProductCard가 `onLike`, `onAddToCart`를 props로만 받으면 → Feature 훅을 직접 쓰지 않으므로 **entities/product/**.
+
+**2. 복잡한 탭 UI**  
+탭 전환이 순수 UI 상태면 → **entities/product/**.
+
+---
+
+## 함수/훅 배치
+
+- **도메인 무관** → shared
+- **도메인 핵심 규칙** → entities
+- **Feature 전용 로직** → features
+
+---
+
+## 실전 팁
+
+1. **애매하면 Feature에** 두고, 여러 곳에서 쓰면 Entity로 이동
+2. **index.ts는 필수** — Public API 패턴 유지
+3. **Segment는 필요한 것만** — ui, api, model, lib 전부 필수 아님
+4. **같은 Layer 공유 금지** — 필요 시 하위 Layer로 이동
+
+---
+
+## 빠른 참조
+
+| 계층 | 역할 | 명명 | 예시 |
+|------|------|------|------|
+| **shared** | 범용 유틸 | 기술명 | Button, formatDate |
+| **entities** | 도메인 데이터 | 명사 | product, user |
+| **features** | 사용자 행동 | 동사 | add-to-cart, login |
+| **app** | 전역 설정 | — | providers, router |
+
+---
+
+## 구분 체크리스트
+
+- [ ] 도메인을 모른다 → **shared**
+- [ ] Product/User를 안다 → 아래로
+- [ ] 데이터만 표시한다 → **entities**
+- [ ] Feature 훅을 사용한다 → **features**
+- [ ] 전역 설정이다 → **app**
+
+![FSD 계층 구조 요약](/assets/img/67.PNG)
