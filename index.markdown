@@ -1,30 +1,7 @@
 ---
 layout: home
+title: "이주훈"
 ---
-
-<div class="snap-section" markdown="0">
-  <div class="snap-content">
-    <div class="project-cards">
-      <div class="project-card">
-        <h3>YepBuddy</h3>
-        <div class="card-links">
-          <a href="https://github.com/whdjh/yepbuddy" class="btn-github" target="_blank">GitHub</a>
-          <a href="https://www.yepbuddy.co.kr/" class="btn-live" target="_blank">서비스</a>
-        </div>
-      </div>
-      <div class="project-card">
-        <h3>탐슬도감</h3>
-        <div class="card-links">
-          <a href="https://github.com/whdjh/acnh" class="btn-github" target="_blank">GitHub</a>
-          <a href="https://acnh-gules.vercel.app/" class="btn-live" target="_blank">서비스</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="snap-section" markdown="1">
-<div class="snap-content" markdown="1">
 
 ## 01. About Me
 
@@ -32,11 +9,7 @@ layout: home
 
 JS 생태계에 대한 깊은 이해를 바탕으로, 단순한 기능 구현을 넘어 비즈니스 요구사항의 변화에 유연하게 대응할 수 있는 프론트엔드 구조를 설계합니다. 효율적인 업무 방식과 의사소통을 중요하게 생각하며, AI를 활용한 생산성 향상에 관심이 많습니다.
 
-</div>
-</div>
-
-<div class="snap-section" markdown="1">
-<div class="snap-content" markdown="1">
+---
 
 ## 02. Experience
 
@@ -67,23 +40,17 @@ JS 생태계에 대한 깊은 이해를 바탕으로, 단순한 기능 구현을
 - Firebase Firestore 실시간 동기화 + 네트워크 단절 시 캐시 자동 전환
 - 보육원 WiFi 전용 태블릿 환경에서 학습 연속성 보장
 
-</div>
-</div>
+---
 
-<div class="snap-section" markdown="1">
-<div class="snap-content" markdown="1">
+## 03. Side Projects
 
-## 03. Blogs
+**YepBuddy** — 프로틴 가격 추적 서비스
+- [서비스](https://www.yepbuddy.co.kr/) · [GitHub](https://github.com/whdjh/yepbuddy) · [블로그](/pages/2025-08-17-yepbuddy-hello/)
 
-**YepBuddy** — 프로틴 가격 추적 서비스 ([상세 보기](/pages/2025-08-17-yepbuddy-hello/))
+**탐슬도감** — 동물의 숲 도감 서비스
+- [서비스](https://acnh-gules.vercel.app/) · [GitHub](https://github.com/whdjh/acnh) · [블로그](/pages/2025-10-13-tamsul-dictionary-journey/)
 
-**탐슬도감** — 사이드 프로젝트 ([상세 보기](/pages/2025-10-13-tamsul-dictionary-journey/))
-
-</div>
-</div>
-
-<div class="snap-section" markdown="1">
-<div class="snap-content" markdown="1">
+---
 
 ## 04. Education
 
@@ -102,6 +69,3 @@ Computer Engineering · 2019 — 2025 · **3.87** / 4.5
 ### 정보처리기사
 
 한국산업인력공단
-
-</div>
-</div>
