@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "다국어 리소스 관리 하드코딩 API 및 PR 생성 워크플로우 검증"
+title: "다국어 리소스 관리 하드코딩 API 및 PR 생성 워크플로우 검증 (PoC 6편)"
 date: 2025-12-16 00:00:00 +0900
 categories: dev
 ---
@@ -24,7 +24,7 @@ categories: dev
 
 ## 전체 아키텍처 한 번에 보기
 
-![다국어 리소스 관리 전체 아키텍처](/assets/img/74.png)
+![다국어 리소스 관리 전체 아키텍처](/assets/img/70.png)
 
 ---
 

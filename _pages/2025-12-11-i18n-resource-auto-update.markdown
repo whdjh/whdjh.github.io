@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "다국어 리소스 자동 업데이트"
+title: "다국어 리소스 자동 업데이트 (PoC 5편)"
 date: 2025-12-11 00:00:00 +0900
 categories: dev
 ---
