@@ -110,13 +110,13 @@ course_schedules (시간표 테이블)
 > "독방에 들어온 1번 학생을 최대한 빨리 쫓아내거나(에러), 최대한 빨리 통과시켜서(성공) 뒤에 줄 서 있는 99명을 덜 기다리게 만들자"
 > db.prepare('쿼리').get(값) 은 "이 쿼리의 빈칸(?)에 값을 안전하게 넣어서, DB에서 딱 1줄만 재빨리 찾아와!"
 
-1. 트랜젝션 입장 -> 수강 신청 버튼을 눌러 enroll 함수안으로 들어와 끝나기전까지는 아무도 못들옴(동시성 방어)
+### 트랜젝션 입장 -> 수강 신청 버튼을 눌러 enroll 함수안으로 들어와 끝나기전까지는 아무도 못들옴(동시성 방어)
 ```js
 const enroll = db.transaction((studentId, courseId) => {
   // 여기서부터 트랜잭션 시작! 문 잠급니다.
 ```
 
-2. 학생/강의 존재인가? -> students와 courses 테이블의 PRIMARY KEY (id)를 조회
+### 학생/강의 존재인가? -> students와 courses 테이블의 PRIMARY KEY (id)를 조회
 ```js
 // 2. 학생 존재 확인
 const student = db.prepare('SELECT id FROM students WHERE id = ?').get(studentId);
@@ -127,7 +127,7 @@ const course = db.prepare('SELECT id, credits, capacity FROM courses WHERE id = 
 if (!course) return { error: '강좌를 찾을 수 없습니다.', status: 404 };
 ```
 
-3. 중복 신청 확인 -> 수강 테이블의 UNIQUE (학생ID, 강의ID) 제약 조건 활용해서 조회하므로 금방 끝남
+### 중복 신청 확인 -> 수강 테이블의 UNIQUE (학생ID, 강의ID) 제약 조건 활용해서 조회하므로 금방 끝남
 ```js
 // 3. 중복 신청 확인
 const existing = db.prepare(
@@ -136,7 +136,7 @@ const existing = db.prepare(
 if (existing) return { error: '이미 수강신청한 강좌입니다.', status: 409 };
 ```
 
-4. 정원 초과인가? -> COUNT하므로 단순 개수 세는 연산이어서 1,2 다음으로 끝남
+### 정원 초과인가? -> COUNT하므로 단순 개수 세는 연산이어서 1,2 다음으로 끝남
 ```js
 // 4. 정원 확인 (동시성 제어 핵심)
 const enrolled = db.prepare(
@@ -146,7 +146,7 @@ if (enrolled >= course.capacity) return { error: '정원이 초과되었습니�
 ```
 
 
-5. 최대 학점인가? -> 수강 명단과 시간표와 강의 테이블을 JOIN하여 아래와 같은 테이블이 만들어지고, 학점 칸의 숫자들을 SUM까지 완료하여 고비용
+### 최대 학점인가? -> 수강 명단과 시간표와 강의 테이블을 JOIN하여 아래와 같은 테이블이 만들어지고, 학점 칸의 숫자들을 SUM까지 완료하여 고비용
 
 | 학생 ID | 수강 중인 강의 | 강의명 | 학점 (credits) |
 | --- | --- | --- | --- |
@@ -168,7 +168,7 @@ if (currentCredits + course.credits > 18) {
 ```
 
 
-6. 시간표가 겹치는가? -> 기존 수강 명단 + 시간표 + 새 강의 시간표를 모두 JOIN하여 아래와 같은 테이블이 만들어지고. 새로 신청한 강의의 시간표(예: 월요일 1교시)와 **"숫자가 일치하는 줄이 있는지" 일일이 대조**해야 하므로 가장 무거운 연산
+### 시간표가 겹치는가? -> 기존 수강 명단 + 시간표 + 새 강의 시간표를 모두 JOIN하여 아래와 같은 테이블이 만들어지고. 새로 신청한 강의의 시간표(예: 월요일 1교시)와 **"숫자가 일치하는 줄이 있는지" 일일이 대조**해야 하므로 가장 무거운 연산
 
 | 학생 ID | 수강 중인 강의 | 요일 (숫자) | 교시 (숫자) |
 | --- | --- | --- | --- |
@@ -193,8 +193,8 @@ if (conflict) {
 }
 ```
 
-7. 합격 -> INSERT
-8. 다시 -> COMMIT
+### 합격 -> INSERT
+### 다시 -> COMMIT
 ```js
 // 7. 수강신청 등록 (INSERT)
 const result = db.prepare(
