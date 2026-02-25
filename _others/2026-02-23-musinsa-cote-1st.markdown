@@ -1,3 +1,9 @@
+---
+layout: post
+title: "무신사 코테 1차"
+date: 2026-02-19 00:00:00 +0900
+---
+
 ## Node.js 입력 처리 (Buffering Strategy)
 
 브랜드 정보(Context)가 먼저 주어지고 고객 요청(Query)이 뒤따르는 구조에서는 줄 단위의 실시간 처리(Streaming)보다 전체 데이터를 확보한 후 처리하는 버퍼링(Buffering) 방식이 안전하다고 판단했다.
