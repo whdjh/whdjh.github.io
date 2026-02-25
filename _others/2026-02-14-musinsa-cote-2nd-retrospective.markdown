@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "무신사 코테 2차 회고: 동시성 제어와 AI 활용 전략"
+title: "무신사 코테 2차 회고"
 date: 2026-02-14 00:00:00 +0900
 categories: dev
 ---
@@ -118,33 +118,31 @@ const enroll = db.transaction((studentId, courseId) => {
 
 2. 학생/강의 존재인가? -> students와 courses 테이블의 PRIMARY KEY (id)를 조회
 ```js
-  // 2. 학생 존재 확인
-  const student = db.prepare('SELECT id FROM students WHERE id = ?').get(studentId);
-  if (!student) return { error: '학생을 찾을 수 없습니다.', status: 404 };
+// 2. 학생 존재 확인
+const student = db.prepare('SELECT id FROM students WHERE id = ?').get(studentId);
+if (!student) return { error: '학생을 찾을 수 없습니다.', status: 404 };
 
-  // 2. 강좌 존재 확인
-  const course = db.prepare('SELECT id, credits, capacity FROM courses WHERE id = ?').get(courseId);
-  if (!course) return { error: '강좌를 찾을 수 없습니다.', status: 404 };
+// 2. 강좌 존재 확인
+const course = db.prepare('SELECT id, credits, capacity FROM courses WHERE id = ?').get(courseId);
+if (!course) return { error: '강좌를 찾을 수 없습니다.', status: 404 };
 ```
 
 3. 중복 신청 확인 -> 수강 테이블의 UNIQUE (학생ID, 강의ID) 제약 조건 활용해서 조회하므로 금방 끝남
-
 ```js
-  // 3. 중복 신청 확인
-  const existing = db.prepare(
-    'SELECT id FROM enrollments WHERE student_id = ? AND course_id = ?'
-  ).get(studentId, courseId);
-  if (existing) return { error: '이미 수강신청한 강좌입니다.', status: 409 };
-
+// 3. 중복 신청 확인
+const existing = db.prepare(
+  'SELECT id FROM enrollments WHERE student_id = ? AND course_id = ?'
+).get(studentId, courseId);
+if (existing) return { error: '이미 수강신청한 강좌입니다.', status: 409 };
 ```
 
 4. 정원 초과인가? -> COUNT하므로 단순 개수 세는 연산이어서 1,2 다음으로 끝남
 ```js
-  // 4. 정원 확인 (동시성 제어 핵심)
-  const enrolled = db.prepare(
-    'SELECT COUNT(*) as count FROM enrollments WHERE course_id = ?'
-  ).get(courseId).count;
-  if (enrolled >= course.capacity) return { error: '정원이 초과되었습니다.', status: 409 };
+// 4. 정원 확인 (동시성 제어 핵심)
+const enrolled = db.prepare(
+  'SELECT COUNT(*) as count FROM enrollments WHERE course_id = ?'
+).get(courseId).count;
+if (enrolled >= course.capacity) return { error: '정원이 초과되었습니다.', status: 409 };
 ```
 
 
@@ -156,18 +154,17 @@ const enroll = db.transaction((studentId, courseId) => {
 | 1번 | 7번 | 알고리즘 | 3 |
 
 ```js
-  // 5. 학점 확인 (최대 18학점)
-  const currentCredits = db.prepare(`
-    SELECT COALESCE(SUM(c.credits), 0) as total
-    FROM enrollments e
-    JOIN courses c ON e.course_id = c.id
-    WHERE e.student_id = ?
-  `).get(studentId).total;
-  
-  if (currentCredits + course.credits > 18) {
-    return { error: '최대 학점을 초과합니다.', status: 409 };
-  }
+// 5. 학점 확인 (최대 18학점)
+const currentCredits = db.prepare(`
+  SELECT COALESCE(SUM(c.credits), 0) as total
+  FROM enrollments e
+  JOIN courses c ON e.course_id = c.id
+  WHERE e.student_id = ?
+`).get(studentId).total;
 
+if (currentCredits + course.credits > 18) {
+  return { error: '최대 학점을 초과합니다.', status: 409 };
+}
 ```
 
 
@@ -177,44 +174,41 @@ const enroll = db.transaction((studentId, courseId) => {
 | --- | --- | --- | --- |
 | 1번 | 5번 (자료구조) | 0 (월) | 1 (1교시) |
 | 1번 | 5번 (자료구조) | 2 (수) | 1 (1교시) |
-```js
-  // 6. 시간 충돌 확인
-  const conflict = db.prepare(`
-    SELECT c.name AS course_name
-    FROM enrollments e
-    JOIN course_schedules cs1 ON e.course_id = cs1.course_id
-    JOIN course_schedules cs2 ON cs2.course_id = ?
-    JOIN courses c ON e.course_id = c.id
-    WHERE e.student_id = ?
-      AND cs1.day_of_week = cs2.day_of_week
-      AND cs1.period = cs2.period
-    LIMIT 1
-  `).get(courseId, studentId);
 
-  if (conflict) {
-    return { error: `시간이 충돌하는 강좌가 있습니다: ${conflict.course_name}`, status: 409 };
-  }
+```js
+// 6. 시간 충돌 확인
+const conflict = db.prepare(`
+  SELECT c.name AS course_name
+  FROM enrollments e
+  JOIN course_schedules cs1 ON e.course_id = cs1.course_id
+  JOIN course_schedules cs2 ON cs2.course_id = ?
+  JOIN courses c ON e.course_id = c.id
+  WHERE e.student_id = ?
+    AND cs1.day_of_week = cs2.day_of_week
+    AND cs1.period = cs2.period
+  LIMIT 1
+`).get(courseId, studentId);
+if (conflict) {
+  return { error: `시간이 충돌하는 강좌가 있습니다: ${conflict.course_name}`, status: 409 };
+}
 ```
 
 7. 합격 -> INSERT
 8. 다시 -> COMMIT
 ```js
-  // 7. 수강신청 등록 (INSERT)
-  const result = db.prepare(
-    'INSERT INTO enrollments (student_id, course_id) VALUES (?, ?)'
-  ).run(studentId, courseId);
-
-  // 리턴하는 순간 트랜잭션이 성공적으로 COMMIT 되고 독방 문이 열림!
-  return {
-    data: {
-      id: result.lastInsertRowid,
-      student_id: studentId,
-      course_id: courseId,
-    },
-    status: 201,
-  };
-});
-
+// 7. 수강신청 등록 (INSERT)
+const result = db.prepare(
+  'INSERT INTO enrollments (student_id, course_id) VALUES (?, ?)'
+).run(studentId, courseId);
+// 리턴하는 순간 트랜잭션이 성공적으로 COMMIT 되고 독방 문이 열림!
+return {
+  data: {
+    id: result.lastInsertRowid,
+    student_id: studentId,
+    course_id: courseId,
+  },
+  status: 201,
+};
 ```
 
 ---
