@@ -87,16 +87,16 @@ VM에 4기가를 할당하면, 그 안의 프로그램이 놀고 있어도 내 �
 
 #### 모놀리식 (Monolithic)
 과거에는 유저, 결제, 게시판 기능을 하나의 거대한 서버 덩어리로 묶어 단일 데이터베이스(DB)와 연결했다. 이 구조는 결제 쪽에 버그가 나서 서버가 다운되면 웹사이트 전체가 마비되는 치명적인 단점이 있었다.
-![](https://velog.velcdn.com/images/wngns9807/post/24d8bb0e-5097-444c-9468-69a9b8e34674/image.png)
+![](/assets/img/112.png)
 
 #### SOA (Service-Oriented Architecture)
 모놀리식의 단점을 극복하고자 기능별로 서비스를 쪼개기 시작했다. 하지만 쪼개진 서비스들이 서로 통신하려면 무거운 '중앙 통제 버스(ESB)'를 무조건 거쳐야 했고, DB도 거대한 하나를 다 같이 공유하는 경우가 많아 완벽한 독립을 이루지 못했다.
-![](https://velog.velcdn.com/images/wngns9807/post/52fdd22e-458b-45f7-8aa2-aa69099086e3/image.png)
+![](/assets/img/113.png)
 
 #### MSA (Micro Service Architecture)
 이제는 도메인별로 백엔드 서버를 완전히 독립시킨다. 결제 서버, 유저 서버가 각자만의 도커 컨테이너 방을 갖고, 심지어 DB도 각자 따로 가진 채 가벼운 API로만 소통한다.
 결제 서버가 죽어도 프론트엔드나 유저 서버는 살아있으므로 웹사이트는 정상 작동한다. 이 수십 개의 독립된 서버들을 환경 세팅 스트레스 없이 1초 만에 껐다 켰다 할 수 있게 완벽히 격리해 주는 기반 기술이 바로 도커(Docker)다.
-![](https://velog.velcdn.com/images/wngns9807/post/4eb339d3-f6e2-4bd9-a317-c51abdde212d/image.png)
+![](/assets/img/114.png)
 
 ### 프론트엔드의 평화를 지켜주는 'API Gateway'
 
