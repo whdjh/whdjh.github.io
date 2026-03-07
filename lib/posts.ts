@@ -13,9 +13,9 @@ export interface Post extends PostMeta {
   content: string;
 }
 
-const CONTENT_DIRS = ["_posts", "_pages", "_others"];
+const CONTENT_DIRS = ["_posts", "_pages", "_others", "_designPattern"];
 
-export type ContentDir = "_posts" | "_pages" | "_others";
+export type ContentDir = "_posts" | "_pages" | "_others" | "_designPattern";
 
 function getMarkdownFiles(): { slug: string; filePath: string; dir: ContentDir }[] {
   const root = process.cwd();
@@ -56,13 +56,14 @@ export function getAllPosts(): Post[] {
   return posts.sort((a, b) => (a.date > b.date ? 1 : -1));
 }
 
-export type Category = "sideProjects" | "retrospect" | "react" | "skills";
+export type Category = "sideProjects" | "retrospect" | "react" | "skills" | "designPattern";
 
 const REACT_HOOKS = ["usestate", "useeffect", "usereducer", "memo-usememo-usecallback", "useref", "usecontext"];
 
 function classifyPost(slug: string, dir: ContentDir): Category {
   if (dir === "_posts") return "sideProjects";
   if (dir === "_others") return "skills";
+  if (dir === "_designPattern") return "designPattern";
   // _pages: React hooks → react, 나머지(vue-react-migration, i18n) → retrospect
   const isReactHook = REACT_HOOKS.some((hook) => slug.includes(hook));
   return isReactHook ? "react" : "retrospect";
@@ -75,6 +76,7 @@ export function getPostsByCategory(): Record<Category, Post[]> {
     retrospect: [],
     react: [],
     skills: [],
+    designPattern: [],
   };
 
   for (const { slug, filePath, dir } of files) {
