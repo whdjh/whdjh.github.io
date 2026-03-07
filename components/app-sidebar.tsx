@@ -46,7 +46,7 @@ export function AppSidebar() {
                 <SidebarMenuButton asChild>
                   <Link href="/">
                     <User className="size-4" />
-                    <span>About</span>
+                    <span>이력서</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
