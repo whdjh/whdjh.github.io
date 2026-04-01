@@ -51,7 +51,6 @@ repo
 
 #### Get API로 locale/*.json 생성
 
-{% raw %}
 ```yaml
 - name: Update localeJson from i18n API
   run: |
@@ -64,17 +63,14 @@ repo
       echo "$content" | jq '.' > "locale/${lang}.json"
     done
 ```
-{% endraw %}
 
 예상치 못한 오류가 나면 워크플로우가 실패하도록 `set -euo pipefail`을 둔다. 실서비스 JSON이 들어갈 `locale` 디렉터리를 준비한 뒤, API 응답(형태: `{"ko": {...}, "en": {...}, ...}`)을 받아 언어별 파일로 쪼갠다.
 
 **실서비스 적용 시 변경할 부분**
 
-{% raw %}
 ```yaml
 API_RESPONSE=$(curl -fsSL "${{ secrets.I18N_API_BASE_URL }}${{ env.I18N_API_ENDPOINT }}")
 ```
-{% endraw %}
 
 **변환기 동작 요약**
 
@@ -86,7 +82,6 @@ API_RESPONSE=$(curl -fsSL "${{ secrets.I18N_API_BASE_URL }}${{ env.I18N_API_ENDP
 
 #### 기존 PR 있는지 확인
 
-{% raw %}
 ```yaml
 - name: Check for existing PR
   id: check-existing-pr
@@ -106,7 +101,6 @@ API_RESPONSE=$(curl -fsSL "${{ secrets.I18N_API_BASE_URL }}${{ env.I18N_API_ENDP
   env:
     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
-{% endraw %}
 
 이미 "chore: update Localization" 제목의 PR이 열려 있으면 그 PR 번호와 브랜치 이름을 출력에 넣고, 없으면 비워 둔다.
 
@@ -116,7 +110,6 @@ API_RESPONSE=$(curl -fsSL "${{ secrets.I18N_API_BASE_URL }}${{ env.I18N_API_ENDP
 - **Case 2:** 열린 PR은 없고, 예전 `update-localization-*` 브랜치가 있다 → 그중 최신 브랜치 재사용
 - **Case 3:** 둘 다 없으면 → `update-localization-<현재시각>` 새 브랜치 생성
 
-{% raw %}
 ```yaml
 - name: Generate timestamp and branch name
   id: generate-info
@@ -138,11 +131,9 @@ API_RESPONSE=$(curl -fsSL "${{ secrets.I18N_API_BASE_URL }}${{ env.I18N_API_ENDP
     echo "timestamp=${TIMESTAMP}" >> $GITHUB_OUTPUT
     echo "branch_name=${BRANCH_NAME}" >> $GITHUB_OUTPUT
 ```
-{% endraw %}
 
 #### 동적 브랜치에 커밋/푸시
 
-{% raw %}
 ```yaml
 - name: Update dynamic branch
   run: |
@@ -163,7 +154,6 @@ API_RESPONSE=$(curl -fsSL "${{ secrets.I18N_API_BASE_URL }}${{ env.I18N_API_ENDP
       echo "No changes detected"
     fi
 ```
-{% endraw %}
 
 생성·갱신한 `locale/*.json`만 작업 브랜치(`update-localization-*`)에 커밋·푸시하고, 변경이 없으면 커밋/푸시를 하지 않는다.
 
@@ -174,7 +164,6 @@ API_RESPONSE=$(curl -fsSL "${{ secrets.I18N_API_BASE_URL }}${{ env.I18N_API_ENDP
 
 #### main과 작업 브랜치 사이에 실제 변경 있는지 확인
 
-{% raw %}
 ```yaml
 - name: Check for changes between main and dynamic branch
   id: verify-changed-files
@@ -191,6 +180,5 @@ API_RESPONSE=$(curl -fsSL "${{ secrets.I18N_API_BASE_URL }}${{ env.I18N_API_ENDP
       git diff main...origin/"$BRANCH_NAME" -- 'locale/*.json' || true
     fi
 ```
-{% endraw %}
 
 main과 비교했을 때 `locale/*.json`이 바뀐 경우에만 PR을 생성하도록, 변경 여부를 출력에 기록한다.
