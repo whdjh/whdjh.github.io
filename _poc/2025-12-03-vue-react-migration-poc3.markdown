@@ -160,5 +160,3 @@ await api.save(content);
 기본 동작도 모르고 패턴 탓을 하면 안 된다.
 
 ---
-
-[PoC 1편: Nginx 리버스 프록시](/others/2025-11-28-vue-react-migration-poc1/) | [PoC 2편: Facade 패턴](/others/2025-12-01-vue-react-migration-poc2/) ← 이전 | [PoC 4편: Legacy 에러 New에서 처리](/others/2025-12-04-vue-react-migration-poc4/) → 다음

@@ -271,5 +271,3 @@ self.addEventListener('fetch', (event) => {
 3. Service Worker 등록 후 요청 가로채기 시도  
 
 ---
-
-[PoC 1편: Nginx 리버스 프록시](/others/2025-11-28-vue-react-migration-poc1/) | [PoC 2편: Facade 패턴](/others/2025-12-01-vue-react-migration-poc2/) | [PoC 3편: 라우팅·데이터·Input 검증](/others/2025-12-03-vue-react-migration-poc3/) ← 이전

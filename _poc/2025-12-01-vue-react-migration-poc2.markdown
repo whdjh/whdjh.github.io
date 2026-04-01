@@ -167,5 +167,3 @@ const NEW_APP_ROUTES = [
 - **Facade**: 프론트엔드 자율성·빠른 반복이 중요할 때
 
 우리 팀은 **Facade 방식**을 선택했다. 점진적 전환 단계에서는 속도와 유연성이 더 중요했기 때문이다.
-
-[PoC 1편: Nginx 리버스 프록시](/others/2025-11-28-vue-react-migration-poc1/) ← 이전 | [PoC 3편: 라우팅·데이터 공유·Input/Scroll 검증](/others/2025-12-03-vue-react-migration-poc3/) | [PoC 4편: Legacy 에러 New에서 처리](/others/2025-12-04-vue-react-migration-poc4/) → 다음
