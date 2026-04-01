@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { User, Rocket, BookOpen, Atom, Wrench, Blocks } from "lucide-react";
+import { User, Rocket, Book, FlaskConical, Wrench, Atom, Blocks } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -20,11 +20,12 @@ import { CollapsibleSection } from "@/components/collapsible-section";
 import { getPostsByCategory, type Category, type Post } from "@/lib/posts";
 
 const categories: { key: Category; label: string; icon: typeof Rocket }[] = [
-  { key: "sideProjects", label: "사이드프로젝트", icon: Rocket },
-  { key: "designPattern", label: "디자인패턴", icon: Blocks },
-  { key: "retrospect", label: "회고", icon: BookOpen },
+  { key: "yepbuddy", label: "예쁘디", icon: Rocket },
+  { key: "tamsul-dictionary", label: "탐슬도감", icon: Book },
+  { key: "poc", label: "PoC", icon: FlaskConical },
+  { key: "others", label: "기술", icon: Wrench },
   { key: "react", label: "리액트", icon: Atom },
-  { key: "skills", label: "기술", icon: Wrench },
+  { key: "designPattern", label: "디자인패턴", icon: Blocks },
 ];
 
 export function AppSidebar() {
