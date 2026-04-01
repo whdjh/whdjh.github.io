@@ -1,6 +1,7 @@
 "use client";
 
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 function transformImageSrc(src: string | undefined): string {
   if (!src) return "";
@@ -20,6 +21,7 @@ function transformHref(href: string | undefined): string {
 export function MarkdownContent({ content }: { content: string }) {
   return (
     <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
       components={{
         h1: ({ children }) => (
           <h1 className="mt-8 mb-4 text-2xl font-bold text-dark-brown">{children}</h1>

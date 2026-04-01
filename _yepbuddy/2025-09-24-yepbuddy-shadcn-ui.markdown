@@ -35,20 +35,20 @@ UI가 똑같으니 아무리 기능을 바꿔도 새로움이 느껴지지 않�
 
 ## 과정
 
-1. **shadcn 사이트** 접속 후 Components 탭 클릭
+### **shadcn 사이트** 접속 후 Components 탭 클릭
 
 ![shadcn Components 탭](/assets/img/84.png)
 
-2. Components 중 **Button**을 한 번 만들어 보자.
+### Components 중 **Button**을 한 번 만들어 보자.
 
 ![Button 컴포넌트 선택](/assets/img/85.png)
 
-3. Installation의 명령어를 실행하면 Button 컴포넌트가 `ui` 폴더 내부에 생성된다.
+### Installation의 명령어를 실행하면 Button 컴포넌트가 `ui` 폴더 내부에 생성된다.
 
 ![CLI로 Button 추가](/assets/img/86.png)
 
-4. **Usage**에서 필요한 Button 컴포넌트의 스타일에 따라 사용하면 정상적으로 보인다.
-5. `global.css`에서 버튼 토큰을 설정해 색상도 수정할 수 있다. 나는 초록색을 메인 색상으로 잡아 적용했다.
+### **Usage**에서 필요한 Button 컴포넌트의 스타일에 따라 사용하면 정상적으로 보인다.
+### `global.css`에서 버튼 토큰을 설정해 색상도 수정할 수 있다. 나는 초록색을 메인 색상으로 잡아 적용했다.
 
 ---
 

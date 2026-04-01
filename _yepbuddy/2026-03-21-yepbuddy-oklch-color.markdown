@@ -7,7 +7,7 @@ categories: dev
 
 ## 내 프로젝트에서 발견한 문제
 
-개인 프로젝트로 운동 트래킹 앱을 만들고 있다. React Native + NativeWind 기반이고, 디자인 토큰을 3단계(Primitive → Semantic → Component)로 나눠서 관리하고 있었다.
+개인 프로젝트로 운동 앱을 만들고 있다. React Native + NativeWind 기반이고, 디자인 토큰을 3단계(Primitive → Semantic → Component)로 나눠서 관리하고 있었다.
 
 그러던 중 토스 디자인 플랫폼팀의 **"달리는 기차 바퀴 칠하기: 7년만의 컬러 시스템 업데이트"** 글을 읽었는데, 읽으면서 내 프로젝트에도 똑같은 문제가 있다는 걸 깨달았다.
 
