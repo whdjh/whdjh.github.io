@@ -15,12 +15,11 @@ import {
   SidebarRail,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { CollapsibleSection } from "@/components/collapsible-section";
 import { getPostsByCategory, type Category, type Post } from "@/lib/posts";
 
 const categories: { key: Category; label: string; icon: typeof Rocket }[] = [
-  { key: "yepbuddy", label: "예쁘디", icon: Rocket },
+  { key: "yepbuddy", label: "YepBuddy", icon: Rocket },
   { key: "tamsul-dictionary", label: "탐슬도감", icon: Book },
   { key: "poc", label: "PoC", icon: FlaskConical },
   { key: "others", label: "기술", icon: Wrench },
@@ -56,7 +55,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarSeparator />
-        <ScrollArea className="flex-1">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden">
           {categories.map(({ key, label, icon: Icon }) => (
             <SidebarGroup key={key}>
               <SidebarMenu>
@@ -64,7 +63,7 @@ export function AppSidebar() {
                   <SidebarMenuSub>
                     {postsByCategory[key].map((post: Post) => (
                       <SidebarMenuSubItem key={post.slug}>
-                        <SidebarMenuSubButton asChild className="max-w-full">
+                        <SidebarMenuSubButton asChild>
                           <Link href={`/dev/${post.slug}`} title={post.title}>
                             <span className="truncate">{post.title}</span>
                           </Link>
@@ -76,7 +75,7 @@ export function AppSidebar() {
               </SidebarMenu>
             </SidebarGroup>
           ))}
-        </ScrollArea>
+        </div>
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
