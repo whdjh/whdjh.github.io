@@ -205,11 +205,3 @@ function Child() {
 
 - **실행 순서**를 이해하는 게 중요하다.  
   복잡한 컴포넌트 트리에서 데이터 흐름을 다룰 때, "부모 → 자식으로 데이터가 흐른다"는 것뿐 아니라 **effect·cleanup의 실행 순서(자식 → 부모)**까지 생각해야 한다.
-
-이 포스트는 **리액트 훅 시리즈** 중 하나다. [useState 원리](/others/2025-08-04-usestate-principle/)에 이어 `useEffect`를 정리했다. 다음에는 `useRef`, `useCallback` 등으로 이어갈 예정이다.
-
----
-
-[^1]: [React docs – You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect): 렌더링 중에 계산할 수 있는 값은 state로 두고, 이벤트 핸들러로 처리할 수 있는 건 effect 대신 이벤트에서 처리하는 게 좋다.
-[^2]: [React docs – useEffect](https://react.dev/reference/react/useEffect): *"Effects run after the browser has painted the screen. This keeps your Effect from blocking the initial render."*
-[^3]: [React docs – Lifecycle of Reactive Effects](https://react.dev/learn/lifecycle-of-reactive-effects): *"React runs the cleanup from the previous effect before running the next effect."* — 의존성이 바뀌면 이전 effect의 cleanup이 먼저 실행된 뒤 새 effect가 실행된다.

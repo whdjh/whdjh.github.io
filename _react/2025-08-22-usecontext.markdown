@@ -109,11 +109,4 @@ Context를 적용해 **장바구니 상태**를 전역에서 관리하게 했다
 
 - **페이지 간 props 전달 없이** 장바구니 접근 가능
 - 코드가 짧아지고 **유지보수**가 수월해짐
-- **Context를 구독하는 컴포넌트만** 리렌더되어, 성능 영향을 줄일 수 있음[^2]
-
-이 포스트는 **리액트 훅 시리즈** 중 하나다. [useState 원리](/others/2025-08-04-usestate-principle/), [useEffect](/others/2025-08-06-useeffect/), [useReducer](/others/2025-08-18-usereducer/), [memo/useMemo/useCallback](/others/2025-08-19-memo-usememo-usecallback/), [useRef](/others/2025-08-20-useref/)에 이어 `useContext`를 정리했다.
-
----
-
-[^1]: [React docs – useContext](https://react.dev/reference/react/useContext): *"useContext is a React Hook that lets you read and subscribe to context from your component."*
-[^2]: Context value가 바뀔 때 해당 Context를 쓰는 컴포넌트만 리렌더된다. Provider를 잘 나누고, value를 메모이제이션하면 불필요한 리렌더를 더 줄일 수 있다.
+- **Context를 구독하는 컴포넌트만** 리렌더되어, 성능 영향을 줄일 수 있음

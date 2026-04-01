@@ -22,9 +22,9 @@ const categories: { key: Category; label: string; icon: typeof Rocket }[] = [
   { key: "yepbuddy", label: "YepBuddy", icon: Rocket },
   { key: "tamsul-dictionary", label: "탐슬도감", icon: Book },
   { key: "poc", label: "PoC", icon: FlaskConical },
-  { key: "others", label: "기술", icon: Wrench },
   { key: "react", label: "리액트", icon: Atom },
   { key: "designPattern", label: "디자인패턴", icon: Blocks },
+  { key: "others", label: "기술", icon: Wrench },
 ];
 
 export function AppSidebar() {

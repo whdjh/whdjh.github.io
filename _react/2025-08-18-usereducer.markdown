@@ -120,9 +120,3 @@ function SignUpForm() {
 
 상태 업데이트 로직을 **reducer 한곳**에 모아 두었기 때문에, 상태가 늘어나도 **state**와 **dispatch**만 신경 쓰면 됐다.  
 **상태 변경 흐름**을 한눈에 파악하기 쉬워졌다.
-
-이 포스트는 **리액트 훅 시리즈** 중 하나다. [useState 원리](/others/2025-08-04-usestate-principle/), [useEffect](/others/2025-08-06-useeffect/)에 이어 `useReducer`를 정리했다. 다음에는 `useRef`, `useCallback` 등으로 이어갈 예정이다.
-
----
-
-[^1]: [React docs – useReducer](https://react.dev/reference/react/useReducer): *"useReducer is usually preferable to useState when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one."*

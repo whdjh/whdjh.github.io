@@ -7,6 +7,8 @@ categories: dev
 
 **리액트 훅 시리즈** 첫 번째 — `useState`가 어떻게 동작하는지 정리한 글이다.
 
+원본링크: https://velog.io/@wngns9807/%ED%95%A8%EC%88%98%ED%98%95-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%EC%9D%98-%EC%9B%90%EB%A6%ACuseState
+
 ---
 
 ## 왜 공부하게 되었나?
@@ -251,10 +253,3 @@ React는 **호출 순서**로 훅을 구분한다.
   React가 **상태 변경을 감지하는 방식**을 알고 나니,  
   왜 불변성을 지켜야 하는지 **근본적으로** 이해하게 됐다.  
   “규칙”이 아니라 **렌더링·최적화**와 연결된 원리라는 걸 깨달았다.
-
-이 포스트는 **리액트 훅 시리즈** 중 하나다. 다음에는 `useEffect` 등 다른 훅으로 이어갈 예정이다.
-
----
-
-[^1]: 함수가 다시 호출될 때마다 새로운 실행 컨텍스트가 만들어지므로, 일반 변수만 쓰면 매번 초기화된다. React는 훅의 값을 컴포넌트 인스턴스(fiber)에 붙여 두기 때문에, “함수 바깥”에 저장된 것처럼 동작한다.
-[^2]: [React docs – State: A Component's Memory](https://react.dev/learn/state-a-components-memory): *"State is isolated between components. React keeps track of which state belongs to which component."*
