@@ -16,12 +16,14 @@ export function CollapsibleSection({
   label,
   icon,
   children,
+  defaultOpen = false,
 }: {
   label: string;
   icon: React.ReactNode;
   children: React.ReactNode;
+  defaultOpen?: boolean;
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { User, Rocket, Book, FlaskConical, Wrench, Atom, Blocks } from "lucide-react";
+import { User } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -9,26 +9,21 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubItem,
-  SidebarMenuSubButton,
   SidebarRail,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
-import { CollapsibleSection } from "@/components/collapsible-section";
-import { getPostsByCategory, type Category, type Post } from "@/lib/posts";
-
-const categories: { key: Category; label: string; icon: typeof Rocket }[] = [
-  { key: "yepbuddy", label: "YepBuddy", icon: Rocket },
-  { key: "tamsul-dictionary", label: "탐슬도감", icon: Book },
-  { key: "poc", label: "PoC", icon: FlaskConical },
-  { key: "react", label: "리액트", icon: Atom },
-  { key: "designPattern", label: "디자인패턴", icon: Blocks },
-  { key: "others", label: "기술", icon: Wrench },
-];
+import { SidebarNav } from "@/components/sidebar-nav";
+import { getPostsByCategory, type Category } from "@/lib/posts";
 
 export function AppSidebar() {
   const postsByCategory = getPostsByCategory();
+
+  const navData = Object.fromEntries(
+    Object.entries(postsByCategory).map(([cat, posts]) => [
+      cat,
+      posts.map(({ slug, title }) => ({ slug, title })),
+    ])
+  ) as Record<Category, { slug: string; title: string }[]>;
 
   return (
     <Sidebar>
@@ -55,27 +50,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarSeparator />
-        <div className="flex-1 overflow-y-auto overflow-x-hidden">
-          {categories.map(({ key, label, icon: Icon }) => (
-            <SidebarGroup key={key}>
-              <SidebarMenu>
-                <CollapsibleSection label={label} icon={<Icon className="size-4" />}>
-                  <SidebarMenuSub>
-                    {postsByCategory[key].map((post: Post) => (
-                      <SidebarMenuSubItem key={post.slug}>
-                        <SidebarMenuSubButton asChild>
-                          <Link href={`/dev/${post.slug}`} title={post.title}>
-                            <span className="truncate">{post.title}</span>
-                          </Link>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
-                    ))}
-                  </SidebarMenuSub>
-                </CollapsibleSection>
-              </SidebarMenu>
-            </SidebarGroup>
-          ))}
-        </div>
+        <SidebarNav postsByCategory={navData} />
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
