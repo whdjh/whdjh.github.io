@@ -127,14 +127,14 @@ useEffect(() => {
 
 # 결과
 
-- **보안 강화**
+- 보안 강화
   1. accessToken을 메모리에만 저장하여 JS 접근 차단 → XSS 공격 방어
   2. refreshToken을 HttpOnly + SameSite 쿠키에 저장 → CSRF 공격 방어
 
-- **UX 개선**
+- UX 개선
   1. 새로고침 시 refreshToken으로 자동 재발급 → 로그인 유지 경험 제공
 
-- **코드 관리 효율**
+- 코드 관리 효율
   1. 토큰 관리 로직을 전역에서 일관되게 관리 가능
 
 # 깨달은 점

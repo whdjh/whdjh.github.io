@@ -15,7 +15,7 @@ categories: dev
 
 그래서 결심했다. "차라리 봇을 만들어서, 나 대신 자동으로 가격을 가져오자."
 
-이렇게 YepBuddy의 자동화 시스템, **'프로틴 가격 감시자'** 프로젝트가 시작됐다.
+이렇게 YepBuddy의 자동화 시스템, '프로틴 가격 감시자' 프로젝트가 시작됐다.
 
 ---
 
@@ -53,7 +53,7 @@ protein-price-tracker/
 }
 ```
 
-- **puppeteer-extra + StealthPlugin**: 봇 감지 시스템을 피하기 위한 스텔스 브라우저 세팅
+- puppeteer-extra + StealthPlugin: 봇 감지 시스템을 피하기 위한 스텔스 브라우저 세팅
 
 ### Supabase 서비스 키를 .env에
 
@@ -61,11 +61,11 @@ protein-price-tracker/
 
 ![Supabase URL](/assets/img/93.png)
 
-#### 2. 사이드바에서 **Project Settings** 탭 클릭
+#### 2. 사이드바에서 Project Settings 탭 클릭
 
 ![Project Settings](/assets/img/94.png)
 
-#### 3. **API Keys** 탭 클릭
+#### 3. API Keys 탭 클릭
 
 ![API Keys](/assets/img/95.png)
 
@@ -108,7 +108,7 @@ const PRODUCTS = [
 ];
 ```
 
-쿠팡은 정책이 엄격하고 공식 API가 있어서, 별도로 **파트너스 API**를 활용할 예정이다.
+쿠팡은 정책이 엄격하고 공식 API가 있어서, 별도로 파트너스 API를 활용할 예정이다.
 
 #### 가격 크롤링 함수
 
@@ -177,7 +177,7 @@ main();
 ```
 
 - Puppeteer로 각 상품 페이지 접속 → 가격 요소 추출 → 숫자만 파싱
-- **월과 일이 같은 날**일 때만 Supabase `protein_prices_daily` 테이블에 저장
+- 월과 일이 같은 날일 때만 Supabase `protein_prices_daily` 테이블에 저장
 - MyProtein 세일 주기에 맞춰 자동 저장되도록 구성
 
 ### GitHub Actions: 매일 오전 8시(KST 오후 5시) 자동화
@@ -224,4 +224,4 @@ jobs:
 - 월·일이 같은 날(세일 가능일)에만 Supabase에 자동 저장한다.
 - 전체 로깅과 에러는 GitHub Actions 로그로 확인한다.
 
-결과적으로, "매달 세일 시기를 기다리며 수동으로 기록하던" 과정이 **완전 자동화된 가격 DB**로 바뀌었다.
+결과적으로, "매달 세일 시기를 기다리며 수동으로 기록하던" 과정이 완전 자동화된 가격 DB로 바뀌었다.

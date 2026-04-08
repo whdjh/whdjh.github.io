@@ -9,8 +9,8 @@ categories: dev
 
 2024년 12월 30일, 프로젝트에서 프로필 정보를 수정해도 새로고침하기 전에는 화면이 갱신되지 않는 문제가 있었다.
 
-> **수정은 됐는데 화면만 안 바뀌어서 새로고침을 해야 했다.**  
-> **전역 상태를 어떻게 관리하면 좋을까?**
+> 수정은 됐는데 화면만 안 바뀌어서 새로고침을 해야 했다.  
+> 전역 상태를 어떻게 관리하면 좋을까?
 
 상태와 UI가 제대로 연결되지 않아, 전역 상태 관리 라이브러리 도입을 검토하게 되었고 그 과정을 정리해 보았다.
 
@@ -27,9 +27,9 @@ categories: dev
 
 ### 상태관리 종류
 
-- **로컬 상태**: React에서는 useState로 관리
-- **전역 상태**: zustand, recoil, redux, context API 등으로 관리
-- **서버 상태**: React Query로 관리
+- 로컬 상태: React에서는 useState로 관리
+- 전역 상태: zustand, recoil, redux, context API 등으로 관리
+- 서버 상태: React Query로 관리
 
 ### Zustand를 왜 선택했지?
 
@@ -85,7 +85,7 @@ setUser({ ...user, username: data.username });
 
 ## 마치며
 
-Zustand 도입으로 **상태와 UI가 한 방향으로 흐르는 구조**를 만들 수 있었다.
+Zustand 도입으로 상태와 UI가 한 방향으로 흐르는 구조를 만들 수 있었다.
 
 - 전역 상태를 store로 두고 구독만 하면 → 수정 시 UI가 자동으로 갱신된다.
 - provider 없이 가볍게 쓰고, persist로 새로고침 후에도 유지할 수 있다.

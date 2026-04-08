@@ -92,7 +92,7 @@ export function AboutContent({ content }: { content: string }) {
       {aboutMe && (
         <BlurFade delay={0.2}>
           <p className="mb-8 leading-7 text-foreground">
-            {aboutMe.body.replace(/^\n+/, "").replace(/\*\*".*?"\*\*\n\n/, "")}
+            {aboutMe.body.replace(/^\n+/, "").replace(/".*?"\n\n/, "")}
           </p>
         </BlurFade>
       )}

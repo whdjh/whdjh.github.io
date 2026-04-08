@@ -17,11 +17,11 @@ categories: dev
 클라이언트 → Next.js(:3000) → Legacy 앱(:3001)
 ```
 
-Legacy 앱에서 **404**나 **500**이 나면:
+Legacy 앱에서 404나 500이 나면:
 
 - Legacy 앱의 에러 페이지가 보임
 - New 앱은 에러를 알 수 없음
-- 두 앱의 **에러 UI**가 달라질 수 있음
+- 두 앱의 에러 UI가 달라질 수 있음
 
 ### 이상적인 목표
 
@@ -59,45 +59,45 @@ export default function Error({
 }
 ```
 
-- **SSR 에러**: Next.js가 자동 감지 → `error.tsx` 렌더링  
-- **CSR 에러**: Next.js가 자동 감지 → `error.tsx` 렌더링  
+- SSR 에러: Next.js가 자동 감지 → `error.tsx` 렌더링  
+- CSR 에러: Next.js가 자동 감지 → `error.tsx` 렌더링  
 
-다만 **Next.js 자체에서 던진 에러만** 잡는다. **Legacy 앱**에서 나온 에러는 감지하지 못한다.
+다만 Next.js 자체에서 던진 에러만 잡는다. Legacy 앱에서 나온 에러는 감지하지 못한다.
 
 ---
 
 ## 시도 1: 각 앱에서 독립적으로 처리
 
-**가장 단순한 방법**
+가장 단순한 방법
 
 ```
 New 앱 에러 → New의 error.tsx
 Legacy 앱 에러 → Legacy의 에러 페이지
 ```
 
-- **장점**: 구현 간단, 각 앱 독립, 추가 작업 없음  
-- **단점**: 에러 UI가 달라질 수 있고, 일관성이 없음  
+- 장점: 구현 간단, 각 앱 독립, 추가 작업 없음  
+- 단점: 에러 UI가 달라질 수 있고, 일관성이 없음  
 
 ---
 
 ## 시도 2: Middleware에서 응답 확인
 
-**아이디어**
+아이디어
 
-- Middleware에서 Legacy 앱 **응답**을 확인해 에러를 감지하고, New 앱의 에러 페이지로 **리다이렉트**해서 처리
+- Middleware에서 Legacy 앱 응답을 확인해 에러를 감지하고, New 앱의 에러 페이지로 리다이렉트해서 처리
 
 ### 에러 페이지 UI만 통일
 
-에러 **감지**는 포기하고, **에러 페이지 UI**만 맞추는 방법.
+에러 감지는 포기하고, 에러 페이지 UI만 맞추는 방법.
 
 ```
 New 앱: error.tsx
 Legacy 앱: error.html (같은 UI)
 ```
 
-**방법**
+방법
 
-1. New 앱의 에러 UI를 **정적 HTML**로 추출  
+1. New 앱의 에러 UI를 정적 HTML로 추출  
 2. Legacy 앱에서 같은 HTML 사용  
 
 ---
@@ -106,7 +106,7 @@ Legacy 앱: error.html (같은 UI)
 
 ### SSR, CSR 에러
 
-**SSR 에러**
+SSR 에러
 
 ```tsx
 // app/test-error/ssr-throw/page.tsx
@@ -117,7 +117,7 @@ export default function Page() {
 
 → `error.tsx` 정상 렌더링
 
-**CSR 에러**
+CSR 에러
 
 ```tsx
 // app/test-error/csr-throw/page.tsx
@@ -142,7 +142,7 @@ export default function Page() {
 
 ### 1. rewrite 응답의 status 확인 가능 여부
 
-**시도해볼 방법**
+시도해볼 방법
 
 ```typescript
 export async function middleware(request: NextRequest) {
@@ -159,18 +159,18 @@ export async function middleware(request: NextRequest) {
 }
 ```
 
-**예상**
+예상
 
-- `NextResponse.rewrite()`는 **즉시** 응답 객체를 반환  
+- `NextResponse.rewrite()`는 즉시 응답 객체를 반환  
 - 이 시점에는 아직 Legacy 앱에 요청이 가지 않았을 수 있음  
-- `response.status`는 **항상 200**일 가능성  
+- `response.status`는 항상 200일 가능성  
 
-**확인이 필요한 이유**
+확인이 필요한 이유
 
 - Next.js가 내부적으로 먼저 요청을 보내고 응답을 기다릴 수도 있음  
 - 문서에 없는 동작일 수 있음  
 
-**검증 방법**
+검증 방법
 
 1. Legacy 앱에서 404를 반환하는 페이지 만들기  
 2. Middleware에서 `response.status` 로깅  
@@ -180,7 +180,7 @@ export async function middleware(request: NextRequest) {
 
 ### 2. Middleware에서 rewrite 응답 가로채기
 
-**시도 1: HEAD로 먼저 확인**
+시도 1: HEAD로 먼저 확인
 
 ```typescript
 const testResponse = await fetch(legacyUrl, { method: 'HEAD' });
@@ -192,9 +192,9 @@ if (!testResponse.ok) {
 return NextResponse.rewrite(legacyUrl);
 ```
 
-**예상 문제**: HEAD와 GET이 **두 번** 발생 → 성능 저하
+예상 문제: HEAD와 GET이 두 번 발생 → 성능 저하
 
-**시도 2: rewrite 후 응답 읽기**
+시도 2: rewrite 후 응답 읽기
 
 ```typescript
 const response = NextResponse.rewrite(legacyUrl);
@@ -207,12 +207,12 @@ if (text.includes('404') || text.includes('error')) {
 return new NextResponse(text);
 ```
 
-**예상**
+예상
 
-- `rewrite` 응답은 **읽을 수 없을** 가능성이 높음  
-- 읽을 수 있다면 시도 2와 비슷한 **메모리** 이슈 가능  
+- `rewrite` 응답은 읽을 수 없을 가능성이 높음  
+- 읽을 수 있다면 시도 2와 비슷한 메모리 이슈 가능  
 
-**검증**
+검증
 
 1. `response.text()` 호출 시 에러 여부  
 2. 가능하다면 메모리 사용량 측정  
@@ -221,7 +221,7 @@ return new NextResponse(text);
 
 ### 3. 네트워크 레벨에서 에러 감지
 
-**클라이언트 접근**
+클라이언트 접근
 
 ```typescript
 // 전역 에러 핸들러
@@ -238,13 +238,13 @@ window.fetch = async (...args) => {
 };
 ```
 
-**예상**
+예상
 
-- `rewrite`로 프록시된 요청은 브라우저 입장에서는 **200 OK**  
-- Legacy의 404/500은 **HTML 본문**으로만 전달  
-- `window.addEventListener('error')`로는 **감지 불가**  
+- `rewrite`로 프록시된 요청은 브라우저 입장에서는 200 OK  
+- Legacy의 404/500은 HTML 본문으로만 전달  
+- `window.addEventListener('error')`로는 감지 불가  
 
-**Service Worker**
+Service Worker
 
 ```typescript
 self.addEventListener('fetch', (event) => {
@@ -259,12 +259,12 @@ self.addEventListener('fetch', (event) => {
 });
 ```
 
-**예상 문제**
+예상 문제
 
 - Service Worker가 `rewrite`된 요청을 가로챌 수 있을지 불명확  
 - Next.js 내부 동작과 충돌 가능  
 
-**검증**
+검증
 
 1. Chrome DevTools Network에서 실제 응답 status 확인  
 2. Legacy 404 페이지의 status가 클라이언트에 어떻게 보이는지 확인  

@@ -18,9 +18,9 @@ categories: dev
 - 쿼리를 직접 작성하는 게 오히려 더 빠를 때도 있었다.
 - 타입이 자동으로 맞춰지지 않아, 프론트 코드에서 매번 수동으로 맞춰 줘야 했다.
 
-"이럴 거면 차라리 **코드로 스키마를 짜는 게** 낫겠다."
+"이럴 거면 차라리 코드로 스키마를 짜는 게 낫겠다."
 
-그래서 러닝커브가 크지 않고, TypeScript 기반으로 바로 쓸 수 있는 **Drizzle ORM**을 도입했다. SQL 문법과 비슷하게 작성할 수 있어서 기존 SQL 감각으로 쉽게 적응할 수 있었고, 스키마를 코드로 관리하니 변경 이력도 한눈에 파악할 수 있었다.
+그래서 러닝커브가 크지 않고, TypeScript 기반으로 바로 쓸 수 있는 Drizzle ORM을 도입했다. SQL 문법과 비슷하게 작성할 수 있어서 기존 SQL 감각으로 쉽게 적응할 수 있었고, 스키마를 코드로 관리하니 변경 이력도 한눈에 파악할 수 있었다.
 
 ---
 
@@ -35,7 +35,7 @@ categories: dev
 
 ### Supabase
 
-1. **New Project** 버튼을 눌러 프로젝트를 생성한다.
+1. New Project 버튼을 눌러 프로젝트를 생성한다.
 
 ![Supabase New Project](/assets/img/87.png)
 
@@ -44,11 +44,11 @@ categories: dev
 ![프로젝트 생성](/assets/img/88.png)
 ![.env 저장](/assets/img/89.png)
 
-3. 생성 후 **Project Status**가 활성화인지 확인하고 **Connect** 버튼을 클릭한다.
+3. 생성 후 Project Status가 활성화인지 확인하고 Connect 버튼을 클릭한다.
 
 ![Connect 버튼](/assets/img/90.png)
 
-4. **Transaction pooler** 또는 **Session pooler**의 URL을 복사한다.
+4. Transaction pooler 또는 Session pooler의 URL을 복사한다.
 
 ![Connection string 복사](/assets/img/91.png)
 
@@ -58,7 +58,7 @@ categories: dev
 
 ### Drizzle
 
-1. **Drizzle Supabase** 문서에 접속한다.  
+1. Drizzle Supabase 문서에 접속한다.  
    - https://orm.drizzle.team/docs/get-started/supabase-new
 
 2. 아래 명령어를 터미널에 입력한다.
@@ -121,50 +121,50 @@ npm run db:migrate
 
 ## 테이블 정의 방법
 
-1. **테이블 생성**
+1. 테이블 생성
 
 ```ts
 pgTable("테이블명", { 컬럼 정의 })
 ```
 
-2. **ID**
+2. ID
 
 ```ts
 bigint().generatedAlwaysAsIdentity().primaryKey()
 uuid().primaryKey()
 ```
 
-3. **문자열**
+3. 문자열
 
 ```ts
 description: text()
 ```
 
-4. **숫자**
+4. 숫자
 
 ```ts
 weight: integer()
 ```
 
-5. **시간**
+5. 시간
 
 ```ts
 updatedate: timestamp().defaultNow()
 ```
 
-6. **드롭다운(ENUM)**
+6. 드롭다운(ENUM)
 
 ```ts
 export const roles = pgEnum("topic", ["wpc", "wpi", ...]);
 ```
 
-7. **가변 데이터 (예: 조회수)**
+7. 가변 데이터 (예: 조회수)
 
 ```ts
 stats: jsonb().$type<{ views: number }>().notNull().default({ views: 0 })
 ```
 
-8. **참조 키**
+8. 참조 키
 
 ```ts
 // references(() => proteins.protein_id, { onDelete: "cascade" }) : 원본 삭제 시 연쇄 삭제
@@ -184,12 +184,12 @@ export const gymsLikes = pgTable("protein_likes", {
 
 ### 사용하다 보니 만났던 문제들
 
-1. **Node.js 런타임 강제**  
+1. Node.js 런타임 강제  
    `postgres-js` 드라이버는 TCP 소켓 등 Node API를 쓰므로 Edge 런타임에서 동작하지 않는다. 해당 라우트/API에 다음을 넣었다.
 
 ```tsx
 export const runtime = "nodejs";
 ```
 
-2. **조건부 where와 타입**  
+2. 조건부 where와 타입  
    Drizzle 체이닝에서 조건부 `where`를 쓰면 타입이 달라질 수 있어, `$dynamic()`으로 타입 안정성을 맞췄다.
