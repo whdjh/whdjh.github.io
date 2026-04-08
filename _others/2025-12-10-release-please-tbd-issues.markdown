@@ -11,7 +11,7 @@ categories: dev
 
 ## Release Please
 
-![Release Please - Major / Minor / Patch](/assets/img/70.png)
+![Release Please - Major / Minor / Patch]
 
 - Major: 이전 버전과 호환되지 않는 API 변경
 - Minor: 이전 버전과 호환되는 기능 추가 (`feat`)
@@ -21,13 +21,17 @@ categories: dev
 
 ## GitFlow vs Trunk-Based
 
-![GitFlow vs Trunk-Based](/assets/img/71.png)
+| | GitFlow main | Trunk-Based main |
+|---|---|---|
+| 상태 | 배포된 상태 | 배포될 수 있는 상태 |
+| 머지 시점 | 릴리즈 완료 후 | 기능 완성 즉시 |
+| 배포 결정 | 머지 = 배포 | 머지 != 배포 |
 
 ---
 
 ## 문제 정의
 
-![문제 정의 - Case 1, Case 2](/assets/img/72.png)
+![문제 정의 - Case 1, Case 2](/assets/img/68.png)
 
 ### Case 1: fix가 포함된 핫픽스 → Result: 릴리즈 노트 중복
 
@@ -47,7 +51,7 @@ categories: dev
 
 ## 시도했던 해결 구조: BackMerge
 
-![BackMerge 구조](/assets/img/73.png)
+![BackMerge 구조](/assets/img/69.png)
 
 ### 해결한 것
 
