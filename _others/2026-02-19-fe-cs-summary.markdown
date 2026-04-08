@@ -82,7 +82,7 @@ categories: dev
 
 > 비동기를 적용하는 방법은 콜백 함수, `Promise`, `async/await`가 있다.
 
-### 5. Event Loop
+### 5. [Event Loop](https://raw.githubusercontent.com/Esoolgnah/Frontend-Interview-Questions/main/Images/important-4/javascript-eventloop.gif)
 
 > 이벤트 루프는 힙, 스택, 큐로 이루어져 진행된다.
 
@@ -113,13 +113,14 @@ categories: dev
    - 클라이언트 측에서 렌더링을 담당하여 첫 로딩에 빈 HTML 파일에 필요한 번들 파일을 모두 다운로드 받음  
    - 장점: 화면 깜빡임 없음, 초기 로딩 이후 구동 속도 빠름  
    - 단점: 초기 구동 속도가 느림
+![CSR](/assets/img/109.png)
 
 2) SSR  
    - 서버 측에서 렌더링 될 페이지를 그려 클라이언트로 내려주는 방식으로, 요청 즉시 HTML 파일을 만듦  
    - 장점: 초기 로딩 속도 빠름, SEO에 유리  
    - 단점: 페이지 이동 시 화면 깜빡임이 발생할 수 있음
 
-![CSR vs SSR 다이어그램](/assets/img/110.png)
+![SSR](/assets/img/110.png)
 
 ### 11. `null`, `undefined`, `undeclared`, `NaN`
 
