@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { User } from "lucide-react";
+import { ShieldCheck, User } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
@@ -52,6 +53,18 @@ export function AppSidebar() {
         <SidebarSeparator />
         <SidebarNav postsByCategory={navData} />
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <Link href="/privacy">
+                <ShieldCheck className="size-4" />
+                <span>YepBuddy 개인정보처리방침</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );
